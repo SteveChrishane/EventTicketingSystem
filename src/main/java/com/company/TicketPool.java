@@ -11,13 +11,13 @@ public class TicketPool {
 
     }
 
-    public void removeTickets(){
+    public void removeTickets(int count){
         if (availableTickets > 0) {
-            availableTickets--;
-            System.out.println("Ticket purchased.");
+            availableTickets -= count;
+            System.out.println("Tickets removed.");
             System.out.println("Total available tickets: " + availableTickets);
         } else {
-            System.out.println("No ticket purchased.");
+            System.out.println("No tickets available to remove.");
         }
     }
 }
