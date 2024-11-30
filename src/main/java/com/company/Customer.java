@@ -14,8 +14,8 @@ public class Customer implements Runnable {
     public void run() {
         try {
             while (simRunning) {
-                Thread.sleep(retrievalRate);
-                ticketPool.removeTickets(1); // Attempt to purchase a ticket
+                Thread.sleep(1000); // Sleep for the retrieval rate duration
+                ticketPool.removeTickets(retrievalRate); // Attempt to purchase a ticket
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

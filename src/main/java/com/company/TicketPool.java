@@ -23,7 +23,7 @@ public class TicketPool {
         try {
             if (availableTickets >= count) {
                 availableTickets -= count;
-                System.out.println("Ticket purchased. Total available: " + availableTickets);
+                System.out.println(count + " tickets purchased. Total available: " + availableTickets);
             } else {
                 System.out.println("No tickets available.");
             }

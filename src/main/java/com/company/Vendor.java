@@ -14,8 +14,8 @@ public class Vendor implements Runnable {
     public void run() {
         try {
             while (simRunning) {
-                Thread.sleep(releaseRate);
-                ticketPool.addTickets(5);
+                Thread.sleep(1000); // Sleep for the release rate duration
+                ticketPool.addTickets(releaseRate);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
