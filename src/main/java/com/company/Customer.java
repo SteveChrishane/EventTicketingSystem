@@ -3,6 +3,7 @@ package com.company;
 public class Customer implements Runnable {
     private TicketPool ticketPool;
     private int retrievalRate;
+    private volatile boolean simRunning = true;
 
     public Customer(TicketPool pool, int rate) {
         this.ticketPool = pool;
@@ -11,13 +12,17 @@ public class Customer implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            try {
+        try {
+            while (simRunning) {
                 Thread.sleep(retrievalRate);
                 ticketPool.removeTickets(1); // Attempt to purchase a ticket
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
             }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+    }
+
+    public void stop() {
+        simRunning = false; // Set stop flag
     }
 }
