@@ -13,12 +13,11 @@ public class Vendor implements Runnable {
     public void run() {
         try {
             Thread.sleep(releaseRate);
-            ticketPool.addTickets(1);
+            ticketPool.addTickets(5);
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
-    
 }

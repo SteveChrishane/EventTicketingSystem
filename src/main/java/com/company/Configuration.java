@@ -16,20 +16,37 @@ public class Configuration {
     private int maxTicketCapacity;
     private static final String configFileName = "config.json"; // Changed to JSON file
 
+    public int getTicketReleaseRate() {
+        return ticketReleaseRate;
+    }
+
+    public int getCustomerRetrievalRate() {
+        return customerRetrievalRate;
+    }
+
     public void configPrompt() {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter the total number of tickets available in the system: ");
-        totalTickets = inputValidation(input);
+        System.out.print("Enter the maximum ticket capacity of the system: ");
+        maxTicketCapacity = inputValidation(input);
+
+        do {
+            System.out.print("Enter the total number of tickets available in the system: ");
+            totalTickets = inputValidation(input);
+
+            if (totalTickets > maxTicketCapacity) {
+                System.out.println("Total tickets cannot exceed the maximum ticket capacity. Please try again.");
+            }
+        } while (totalTickets > maxTicketCapacity);
+
         System.out.print("Enter the ticket release rate: ");
         ticketReleaseRate = inputValidation(input);
+
         System.out.print("Enter the customer retrieval rate: ");
         customerRetrievalRate = inputValidation(input);
-        System.out.print("Enter maximum ticket capacity of the system: ");
-        maxTicketCapacity = inputValidation(input);
+
         System.out.println();
         System.out.println("System configured successfully!");
-
     }
 
     private int inputValidation(Scanner scanner) {
@@ -62,7 +79,7 @@ public class Configuration {
 
     public void saveConfig() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        
+
         try (FileWriter writer = new FileWriter(configFileName)) {
             gson.toJson(this, writer); // Serialize this Configuration object to JSON
             System.out.println("Configuration saved successfully to " + configFileName);
@@ -71,28 +88,12 @@ public class Configuration {
         }
     }
 
-    // public void loadConfig() {
-    //     Gson gson = new Gson();
-
-    //     try (FileReader reader = new FileReader(configFileName)) {
-    //         Configuration config = gson.fromJson(reader, Configuration.class); // Deserialize JSON to Configuration object
-    //         this.totalTickets = config.totalTickets;
-    //         this.ticketReleaseRate = config.ticketReleaseRate;
-    //         this.customerRetrievalRate = config.customerRetrievalRate;
-    //         this.maxTicketCapacity = config.maxTicketCapacity;
-
-    //         System.out.println("Configuration loaded successfully from " + configFileName);
-    //     } catch (IOException e) {
-    //         System.err.println("Error loading configuration: " + e.getMessage());
-    //     }
-    // }
-
-
     public boolean loadConfig() {
         Gson gson = new Gson();
 
         try (FileReader reader = new FileReader(configFileName)) {
-            Configuration config = gson.fromJson(reader, Configuration.class); // Deserialize JSON to Configuration object
+            Configuration config = gson.fromJson(reader, Configuration.class); // Deserialize JSON to Configuration
+                                                                               // object
             if (config != null) {
                 this.totalTickets = config.totalTickets;
                 this.ticketReleaseRate = config.ticketReleaseRate;
@@ -105,19 +106,17 @@ public class Configuration {
             System.err.println("Error loading configuration: " + e.getMessage());
             return false; // Failed to load configuration
         }
-        
+
         return false; // No valid configuration found
     }
 
     public boolean hasValidValues() {
         if (totalTickets > 0 && ticketReleaseRate > 0 && customerRetrievalRate > 0 && maxTicketCapacity > 0) {
-            return true;      
+            return true;
         } else {
             System.out.println("Invalid configuration values. Please reconfigure.");
             return false;
         }
     }
-
-
 
 }
