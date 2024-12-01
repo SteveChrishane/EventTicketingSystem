@@ -91,18 +91,20 @@ public class Main {
 
         System.out.println("Simulation started. Press Enter to stop...");
 
+        // Waiting for user to press Enter
         try {
-            System.in.read(); // Wait for user to press Enter
+            System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Stop all threads gracefully
+        // Stop all threads
         vendor1.stop();
         vendor2.stop();
         customer1.stop();
         customer2.stop();
 
+        // waiting for threads to finish
         try {
             vendorThread1.join();
             vendorThread2.join();
