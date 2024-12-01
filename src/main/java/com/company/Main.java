@@ -19,8 +19,8 @@ public class Main {
 
         config.displayConfig();
 
-        // Initialize the shared TicketPool
-        TicketPool ticketPool = new TicketPool();
+        // Initialize the shared TicketPool with maxTicketCapacity
+        TicketPool ticketPool = new TicketPool(config.getMaxTicketCapacity());
         ticketPool.addTickets(config.getTotalTickets());
 
         while (running) {
@@ -54,7 +54,6 @@ public class Main {
         }
 
         input.close();
-
     }
 
     public static void updateConfiguration(Configuration config, Scanner input) {
@@ -65,6 +64,11 @@ public class Main {
     }
 
     public static void simulate(Configuration config, TicketPool ticketPool) {
+
+        // To reset the ticket pool
+        ticketPool.clearTickets();
+        ticketPool.addTickets(config.getTotalTickets());
+
         System.out.println("Starting simulation...");
 
         // Create Vendor and Customer objects
@@ -110,5 +114,4 @@ public class Main {
 
         System.out.println("Simulation stopped.");
     }
-
 }

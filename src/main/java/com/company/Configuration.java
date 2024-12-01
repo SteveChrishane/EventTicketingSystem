@@ -85,7 +85,7 @@ public class Configuration {
 
         try (FileReader reader = new FileReader(configFileName)) {
             Configuration config = gson.fromJson(reader, Configuration.class); // Deserialize JSON to Configuration
-                                                                               // object
+
             if (config != null) {
                 this.totalTickets = config.totalTickets;
                 this.ticketReleaseRate = config.ticketReleaseRate;
