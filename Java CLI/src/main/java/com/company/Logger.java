@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Logger {
-    private static final String logFileName = "simulation.log";
+    private static final String logFileName = "app.log";
     private static FileWriter writer;
 
     static {
