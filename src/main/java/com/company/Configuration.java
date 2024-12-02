@@ -31,14 +31,15 @@ public class Configuration {
             }
         } while (totalTickets > maxTicketCapacity);
 
-        System.out.print("Enter the ticket release rate: ");
+        System.out.print("Enter the ticket release rate (per second): ");
         ticketReleaseRate = inputValidation(input);
 
-        System.out.print("Enter the customer retrieval rate: ");
+        System.out.print("Enter the customer retrieval rate (per second): ");
         customerRetrievalRate = inputValidation(input);
 
         System.out.println();
         System.out.println("System configured successfully!");
+        Logger.log("System configured successfully!");
     }
 
     private int inputValidation(Scanner scanner) {
@@ -62,11 +63,16 @@ public class Configuration {
 
     public void displayConfig() {
         System.out.println();
+        System.out.println("Max Ticket Capacity: " + maxTicketCapacity);
         System.out.println("Total Tickets: " + totalTickets);
         System.out.println("Ticket Release Rate: " + ticketReleaseRate);
         System.out.println("Customer Retrieval Rate: " + customerRetrievalRate);
-        System.out.println("Max Ticket Capacity: " + maxTicketCapacity);
         System.out.println();
+        // Logger.log("Displayed configuration: totalTickets: " + totalTickets + ",
+        // ticketReleaseRate: "
+        // + ticketReleaseRate + ", customerRetrievalRate: " + customerRetrievalRate +
+        // ", maxTicketCapacity: "
+        // + maxTicketCapacity);
     }
 
     public void saveConfig() {
@@ -75,8 +81,10 @@ public class Configuration {
         try (FileWriter writer = new FileWriter(configFileName)) {
             gson.toJson(this, writer); // Serialize this Configuration object to JSON
             System.out.println("Configuration saved successfully to " + configFileName);
+            Logger.log("Configuration saved successfully to " + configFileName);
         } catch (IOException e) {
             System.err.println("Error saving configuration: " + e.getMessage());
+            Logger.log("Error saving configuration: " + e.getMessage());
         }
     }
 
@@ -92,10 +100,12 @@ public class Configuration {
                 this.customerRetrievalRate = config.customerRetrievalRate;
                 this.maxTicketCapacity = config.maxTicketCapacity;
 
+                Logger.log("Configuration loaded successfully from " + configFileName);
                 return true; // Successfully loaded configuration
             }
         } catch (IOException e) {
             System.err.println("Error loading configuration: " + e.getMessage());
+            Logger.log("Error loading configuration: " + e.getMessage());
             return false; // Failed to load configuration
         }
 
@@ -107,6 +117,7 @@ public class Configuration {
             return true;
         } else {
             System.out.println("Invalid configuration values. Please reconfigure.");
+            Logger.log("Invalid configuration values detected.");
             return false;
         }
     }

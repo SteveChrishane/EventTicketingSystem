@@ -16,6 +16,7 @@ public class Vendor implements Runnable {
             while (simRunning) {
                 Thread.sleep(1000); // Sleep for the release rate duration
                 ticketPool.addTickets(releaseRate);
+                Logger.log("Vendor released " + releaseRate + " tickets.");
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

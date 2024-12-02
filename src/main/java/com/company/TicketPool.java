@@ -17,9 +17,13 @@ public class TicketPool {
         try {
             if (availableTickets + count <= maxTicketCapacity) {
                 availableTickets += count;
-                System.out.println(count + " tickets added. Total available: " + availableTickets);
+                String message = count + " tickets added. Total available: " + availableTickets;
+                System.out.println(message);
+                Logger.log(message);
             } else {
-                System.out.println("Cannot add tickets. Exceeds maximum capacity of " + maxTicketCapacity);
+                String message = "Cannot add tickets. Exceeds maximum capacity of " + maxTicketCapacity;
+                System.out.println(message);
+                Logger.log(message);
             }
         } finally {
             lock.unlock();
@@ -31,9 +35,13 @@ public class TicketPool {
         try {
             if (availableTickets >= count) {
                 availableTickets -= count;
-                System.out.println(count + " tickets purchased. Total available: " + availableTickets);
+                String message = count + " tickets purchased. Total available: " + availableTickets;
+                System.out.println(message);
+                Logger.log(message);
             } else {
-                System.out.println("Not enough tickets available for purchase.");
+                String message = "Not enough tickets available for purchase.";
+                System.out.println(message);
+                Logger.log(message);
             }
         } finally {
             lock.unlock();
@@ -42,5 +50,6 @@ public class TicketPool {
 
     public void clearTickets() {
         availableTickets = 0;
+        Logger.log("All tickets cleared.");
     }
 }

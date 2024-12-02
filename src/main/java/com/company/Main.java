@@ -9,12 +9,14 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Configuration config = new Configuration();
 
-        // Load configuration or prompt for new one
+        // Load configuration or prompt for new one if there is no "config.json"
+        // available
         if (!config.loadConfig() || !config.hasValidValues()) {
             config.configPrompt();
             config.saveConfig();
         } else {
             System.out.println("Configuration loaded successfully.");
+            Logger.log("Configuration loaded successfully.");
         }
 
         config.displayConfig();
@@ -46,9 +48,11 @@ public class Main {
                     break;
                 case 4:
                     running = false;
+                    Logger.log("Application exited.");
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
+                    Logger.log("Invalid menu option selected.");
                     break;
             }
         }
@@ -60,7 +64,8 @@ public class Main {
         System.out.println("\nUpdate Configuration:");
         config.configPrompt();
         config.saveConfig();
-        System.out.println("\nConfiguration updated successfully.");
+        System.out.println("\nConfiguration successfully updated.");
+        Logger.log("Configuration successfully updated.");
     }
 
     public static void simulate(Configuration config, TicketPool ticketPool) {
@@ -70,6 +75,7 @@ public class Main {
         ticketPool.addTickets(config.getTotalTickets());
 
         System.out.println("Starting simulation...");
+        Logger.log("Starting simulation...");
 
         // Create Vendor and Customer objects
         Vendor vendor1 = new Vendor(ticketPool, config.getTicketReleaseRate());
@@ -90,12 +96,14 @@ public class Main {
         customerThread2.start();
 
         System.out.println("Simulation started. Press Enter to stop...");
+        Logger.log("Simulation started successfully.");
 
         // Waiting for user to press Enter
         try {
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
+            Logger.log("Error during simulation: " + e.getMessage());
         }
 
         // Stop all threads
@@ -112,8 +120,10 @@ public class Main {
             customerThread2.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Logger.log("Error while stopping simulation: " + e.getMessage());
         }
 
-        System.out.println("Simulation stopped.");
+        System.out.println("Simulation successfully stopped.");
+        Logger.log("Simulation successfully stopped.");
     }
 }
