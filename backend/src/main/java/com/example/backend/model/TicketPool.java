@@ -26,5 +26,13 @@ public class TicketPool {
         }
     }
 
+    public String removeTickets() {
+        lock.lock();
+        try {
+            return tickets.poll();
+        } finally {
+            lock.unlock();
+        }
+    }
 
 }
