@@ -15,7 +15,7 @@ public class TicketController {
     private TicketingService ticketingService;
 
     @PostMapping("/start")
-    public  String startSimulation(){
+    public String startSimulation() {
         try {
             ticketingService.startSimulation();
             return "Simulation started.";
@@ -38,6 +38,5 @@ public class TicketController {
     public String getStatus() {
         return "Available tickets: " + ticketingService.getAvailableTickets();
     }
-
 
 }

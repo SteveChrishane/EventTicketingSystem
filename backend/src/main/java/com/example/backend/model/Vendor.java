@@ -16,7 +16,7 @@ public class Vendor implements Runnable {
     public void run() {
         while (simRunning) {
             for (int i = 0; i < releaseRate; i++) {
-                String ticket = "Vendor - " + vendorId + " - Ticket - " + System.currentTimeMillis();
+                String ticket = String.valueOf(System.nanoTime());
                 ticketPool.addTickets(ticket);
                 System.out.println("Vendor " + vendorId + " released ticket: " + ticket);
             }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class TicketingService {
@@ -34,15 +33,18 @@ public class TicketingService {
 
         // Reset the ticket pool
         ticketPool.clearTickets();
+
+        // Add tickets to the pool
         for (int i = 0; i < config.getTotalTickets(); i++) {
-            ticketPool.addTickets("" + System.nanoTime());
+            ticketPool.addTickets(String.valueOf(System.nanoTime()));
         }
 
-        System.out.println("Starting simulation...");
+        System.out.println("\nTicket pool initialized with " + ticketPool.getTicketCount() + " tickets.");
+        System.out.println("\nStarting simulation...\n");
 
         // Create 2 vendors
         for (int i = 0; i < 2; i++) {
-            Vendor vendor = new Vendor(i, ticketPool, config.getTicketReleaseRate());
+            Vendor vendor = new Vendor(i + 1, ticketPool, config.getTicketReleaseRate());
             vendors.add(vendor);
             Thread vendorThread = new Thread(vendor);
             vendorThreads.add(vendorThread);
@@ -51,7 +53,7 @@ public class TicketingService {
 
         // Create 2 customers
         for (int i = 0; i < 2; i++) {
-            Customer customer = new Customer(ticketPool, i, config.getCustomerRetrievalRate());
+            Customer customer = new Customer(ticketPool, i + 1, config.getCustomerRetrievalRate());
             customers.add(customer);
             Thread customerThread = new Thread(customer);
             customerThreads.add(customerThread);
@@ -59,7 +61,7 @@ public class TicketingService {
         }
 
         isSimulationRunning = true;
-        System.out.println("Simulation started successfully");
+
     }
 
     // To stop the simulation
@@ -101,18 +103,19 @@ public class TicketingService {
         customerThreads.clear();
 
         isSimulationRunning = false;
-        System.out.println("Simulation successfully stopped.");
+        System.out.println("\nSimulation successfully stopped.");
+        System.out.println("\nAvailable tickets: " + ticketPool.getTicketCount());
     }
 
     public int getAvailableTickets() {
         return ticketPool.getTicketCount();
     }
 
-    @PreDestroy
-    public void cleanup() {
-        if (isSimulationRunning) {
-            stopSimulation();
-        }
-    }
+    // @PreDestroy
+    // public void cleanup() {
+    // if (isSimulationRunning) {
+    // stopSimulation();
+    // }
+    // }
 
 }

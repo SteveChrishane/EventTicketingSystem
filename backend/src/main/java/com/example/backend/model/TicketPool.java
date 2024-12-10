@@ -17,7 +17,7 @@ public class TicketPool {
         try {
             if (tickets.size() < maxCapacity) {
                 tickets.offer(ticket);
-                System.out.println("Ticket added: " + ticket);
+                // System.out.println("Ticket added: " + ticket);
             } else {
                 System.out.println("Cannot add tickets to the pool. Max capacity reached.");
             }
