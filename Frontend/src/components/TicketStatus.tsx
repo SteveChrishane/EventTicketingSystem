@@ -1,22 +1,18 @@
-import React from "react";
-
 interface TicketStatusProps {
-  availableTickets: number;
-  maxCapacity: number;
+  count: number;
+  total: number;
 }
 
-const TicketStatus: React.FC<TicketStatusProps> = ({
-  availableTickets,
-  maxCapacity,
-}) => {
+function TicketStatus({ count, total }: TicketStatusProps) {
   return (
-    <div>
+    <div className="ticket-status">
       <h2>Ticket Pool Status</h2>
       <p>
-        Tickets Available: {availableTickets} / {maxCapacity}
+        Available Tickets: {count} / {total}
       </p>
+      <progress value={count} max={total}></progress>
     </div>
   );
-};
+}
 
 export default TicketStatus;

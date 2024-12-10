@@ -1,26 +1,18 @@
-import React from "react";
-
 interface LogDisplayProps {
   logs: string[];
 }
 
-const LogDisplay: React.FC<LogDisplayProps> = ({ logs }) => {
+function LogDisplay({ logs }: LogDisplayProps) {
   return (
-    <div>
-      <h2>Event Logs</h2>
-      <div
-        style={{
-          maxHeight: "200px",
-          overflowY: "auto",
-          border: "1px solid #ccc",
-        }}
-      >
+    <div className="log-display">
+      <h2>System Logs</h2>
+      <ul>
         {logs.map((log, index) => (
-          <p key={index}>{log}</p>
+          <li key={index}>{log}</li>
         ))}
-      </div>
+      </ul>
     </div>
   );
-};
+}
 
 export default LogDisplay;

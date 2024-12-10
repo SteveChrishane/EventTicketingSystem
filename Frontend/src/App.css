@@ -1,0 +1,56 @@
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2 {
+  color: #333;
+}
+
+.config-form {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.config-form div {
+  margin-bottom: 10px;
+}
+
+.config-form label {
+  display: inline-block;
+  width: 200px;
+}
+
+.config-form input {
+  width: 100px;
+}
+
+.ticket-status,
+.control-panel,
+.log-display {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.control-panel button {
+  margin-right: 10px;
+}
+
+.log-display ul {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  list-style-type: none;
+}
+
+progress {
+  width: 100%;
+}

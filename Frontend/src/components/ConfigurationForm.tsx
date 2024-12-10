@@ -1,63 +1,81 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { SystemConfig } from "../App";
 
-interface ConfigurationProps {
-  onSave: (config: {
-    totalTickets: number;
-    releaseRate: number;
-    retrievalRate: number;
-    maxCapacity: number;
-  }) => void;
+interface ConfigurationFormProps {
+  onSubmit: (config: SystemConfig) => void;
 }
 
-const ConfigurationForm: React.FC<ConfigurationProps> = ({ onSave }) => {
-  const [totalTickets, setTotalTickets] = useState(100);
-  const [releaseRate, setReleaseRate] = useState(1000);
-  const [retrievalRate, setRetrievalRate] = useState(500);
-  const [maxCapacity, setMaxCapacity] = useState(200);
+function ConfigurationForm({ onSubmit }: ConfigurationFormProps) {
+  const [config, setConfig] = useState<SystemConfig>({
+    totalTickets: 50,
+    ticketReleaseRate: 1,
+    customerRetrievalRate: 1,
+    maxTicketCapacity: 100,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      [name]: parseInt(value, 10),
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({ totalTickets, releaseRate, retrievalRate, maxCapacity });
+    onSubmit(config);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Configuration</h2>
-      <label>
-        Total Tickets:
+    <form onSubmit={handleSubmit} className="config-form">
+      <h2>System Configuration</h2>
+      <div>
+        <label htmlFor="totalTickets">Total Tickets:</label>
         <input
           type="number"
-          value={totalTickets}
-          onChange={(e) => setTotalTickets(Number(e.target.value))}
+          id="totalTickets"
+          name="totalTickets"
+          value={config.totalTickets}
+          onChange={handleChange}
+          required
         />
-      </label>
-      <label>
-        Ticket Release Rate (ms):
+      </div>
+      <div>
+        <label htmlFor="ticketReleaseRate">Ticket Release Rate:</label>
         <input
           type="number"
-          value={releaseRate}
-          onChange={(e) => setReleaseRate(Number(e.target.value))}
+          id="ticketReleaseRate"
+          name="ticketReleaseRate"
+          value={config.ticketReleaseRate}
+          onChange={handleChange}
+          required
         />
-      </label>
-      <label>
-        Customer Retrieval Rate (ms):
+      </div>
+      <div>
+        <label htmlFor="customerRetrievalRate">Customer Retrieval Rate:</label>
         <input
           type="number"
-          value={retrievalRate}
-          onChange={(e) => setRetrievalRate(Number(e.target.value))}
+          id="customerRetrievalRate"
+          name="customerRetrievalRate"
+          value={config.customerRetrievalRate}
+          onChange={handleChange}
+          required
         />
-      </label>
-      <label>
-        Max Ticket Capacity:
+      </div>
+      <div>
+        <label htmlFor="maxTicketCapacity">Max Ticket Capacity:</label>
         <input
           type="number"
-          value={maxCapacity}
-          onChange={(e) => setMaxCapacity(Number(e.target.value))}
+          id="maxTicketCapacity"
+          name="maxTicketCapacity"
+          value={config.maxTicketCapacity}
+          onChange={handleChange}
+          required
         />
-      </label>
-      <button type="submit">Save Configuration</button>
+      </div>
+      <button type="submit">Start System</button>
     </form>
   );
-};
+}
 
 export default ConfigurationForm;
