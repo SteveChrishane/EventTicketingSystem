@@ -12,8 +12,8 @@ public class Customer implements Runnable {
         this.retrievalRate = retrievalRate;
     }
 
+    @Override
     public void run() {
-
         while (simRunning) {
             for (int i = 0; i < retrievalRate; i++) {
                 String ticket = ticketPool.removeTickets();
@@ -22,6 +22,11 @@ public class Customer implements Runnable {
                 } else {
                     System.out.println("Customer " + customerId + " found no tickets available.");
                 }
+            }
+            try {
+                Thread.sleep(1000); // Add delay to observe the process
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

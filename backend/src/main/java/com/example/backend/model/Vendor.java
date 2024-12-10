@@ -14,11 +14,16 @@ public class Vendor implements Runnable {
 
     @Override
     public void run() {
-
         while (simRunning) {
             for (int i = 0; i < releaseRate; i++) {
                 String ticket = "Vendor - " + vendorId + " - Ticket - " + System.currentTimeMillis();
                 ticketPool.addTickets(ticket);
+                System.out.println("Vendor " + vendorId + " released ticket: " + ticket);
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -19,7 +19,7 @@ public class TicketPool {
                 tickets.offer(ticket);
                 System.out.println("Ticket added: " + ticket);
             } else {
-                System.out.println("Can not add tickets to the pool. Max capacity reached.");
+                System.out.println("Cannot add tickets to the pool. Max capacity reached.");
             }
         } finally {
             lock.unlock();

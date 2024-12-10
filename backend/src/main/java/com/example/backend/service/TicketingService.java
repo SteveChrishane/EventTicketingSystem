@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
 
 @Service
 public class TicketingService {
@@ -19,7 +19,7 @@ public class TicketingService {
     private List<Thread> customerThreads = new ArrayList<>();
     private List<Vendor> vendors = new ArrayList<>();
     private List<Customer> customers = new ArrayList<>();
-    private  boolean isSimulationRunning = false;
+    private boolean isSimulationRunning = false;
 
     public TicketingService(Config config) {
         this.config = config;
@@ -28,8 +28,6 @@ public class TicketingService {
 
     // To start the simulation
     public synchronized void startSimulation() {
-
-        // to check if the simulation is already running
         if (isSimulationRunning) {
             throw new IllegalStateException("Simulation already running");
         }
@@ -37,12 +35,12 @@ public class TicketingService {
         // Reset the ticket pool
         ticketPool.clearTickets();
         for (int i = 0; i < config.getTotalTickets(); i++) {
-            ticketPool.addTickets("Ticket-" + (i + 1));
+            ticketPool.addTickets("" + System.nanoTime());
         }
 
         System.out.println("Starting simulation...");
 
-        // to create 2 vendors
+        // Create 2 vendors
         for (int i = 0; i < 2; i++) {
             Vendor vendor = new Vendor(i, ticketPool, config.getTicketReleaseRate());
             vendors.add(vendor);
@@ -51,9 +49,9 @@ public class TicketingService {
             vendorThread.start();
         }
 
-        // to create 2 customers
-        for (int i = 0; i < 2; i++) { // Example: 2 customers
-            Customer customer = new Customer(ticketPool, i,  config.getCustomerRetrievalRate());
+        // Create 2 customers
+        for (int i = 0; i < 2; i++) {
+            Customer customer = new Customer(ticketPool, i, config.getCustomerRetrievalRate());
             customers.add(customer);
             Thread customerThread = new Thread(customer);
             customerThreads.add(customerThread);
@@ -64,13 +62,13 @@ public class TicketingService {
         System.out.println("Simulation started successfully");
     }
 
-    // to stop the simulation
+    // To stop the simulation
     public synchronized void stopSimulation() {
         if (!isSimulationRunning) {
             throw new IllegalStateException("Simulation already stopped");
         }
 
-        // to stop all the threads
+        // Stop all the threads
         for (Vendor vendor : vendors) {
             vendor.stop();
         }

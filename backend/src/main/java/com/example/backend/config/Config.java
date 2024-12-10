@@ -4,10 +4,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Config {
-    private int totalTickets;
-    private int ticketReleaseRate;
-    private int customerRetrievalRate;
-    private int maxTicketCapacity;
+    private int totalTickets = 100;
+    private int ticketReleaseRate = 5;
+    private int customerRetrievalRate = 2;
+    private int maxTicketCapacity = 200;
 
     public int getTotalTickets() {
         return totalTickets;
