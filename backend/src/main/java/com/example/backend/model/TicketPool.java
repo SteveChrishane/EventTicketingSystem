@@ -35,6 +35,15 @@ public class TicketPool {
         }
     }
 
+    public int getTicketCount() {
+        lock.lock();
+        try {
+            return tickets.size();
+        } finally {
+            lock.unlock();
+        }
+    }
+
     public void clearTickets() {
         tickets.clear();
     }

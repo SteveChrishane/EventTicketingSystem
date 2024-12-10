@@ -106,6 +106,10 @@ public class TicketingService {
         System.out.println("Simulation successfully stopped.");
     }
 
+    public int getAvailableTickets() {
+        return ticketPool.getTicketCount();
+    }
+
     @PreDestroy
     public void cleanup() {
         if (isSimulationRunning) {
