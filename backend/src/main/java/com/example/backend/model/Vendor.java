@@ -4,6 +4,7 @@ public class Vendor implements Runnable {
     private int vendorId;
     private TicketPool ticketPool;
     private int releaseRate;
+    private volatile boolean simRunning = true;
 
     public Vendor(int vendorId, TicketPool ticketPool, int releaseRate) {
         this.vendorId = vendorId;
@@ -13,9 +14,16 @@ public class Vendor implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < releaseRate; i++) {
-            String ticket = "Vendor - " + vendorId + " - Ticket - " + System.currentTimeMillis();
-            ticketPool.addTickets(ticket);
+
+        while (simRunning) {
+            for (int i = 0; i < releaseRate; i++) {
+                String ticket = "Vendor - " + vendorId + " - Ticket - " + System.currentTimeMillis();
+                ticketPool.addTickets(ticket);
+            }
         }
+    }
+
+    public void stop() {
+        simRunning = false;
     }
 }

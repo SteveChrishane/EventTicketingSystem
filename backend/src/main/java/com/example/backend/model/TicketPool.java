@@ -35,4 +35,8 @@ public class TicketPool {
         }
     }
 
+    public void clearTickets() {
+        tickets.clear();
+    }
+
 }
