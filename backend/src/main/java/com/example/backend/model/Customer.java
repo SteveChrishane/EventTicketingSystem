@@ -11,6 +11,13 @@ public class Customer implements Runnable {
         this.retrievalRate = retrievalRate;
     }
     public void run() {
-
+        for (int i = 0; i < retrievalRate; i++) {
+            String ticket = ticketPool.removeTickets();
+            if (ticket != null) {
+                System.out.println("Customer " + customerId + " purchased: " + ticket);
+            } else {
+                System.out.println("Customer " + customerId + " found no tickets available.");
+            }
+        }
     }
 }
