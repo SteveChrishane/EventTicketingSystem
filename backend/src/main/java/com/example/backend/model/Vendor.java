@@ -10,9 +10,12 @@ public class Vendor implements Runnable {
         this.ticketPool = ticketPool;
         this.releaseRate = releaseRate;
     }
-    
+
     @Override
     public void run() {
-
+        for (int i = 0; i < releaseRate; i++) {
+            String ticket = "Vendor - " + vendorId + " - Ticket - " + System.currentTimeMillis();
+            ticketPool.addTickets(ticket);
+        }
     }
 }
