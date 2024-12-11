@@ -33,15 +33,6 @@ function ConfigurationForm({ onSubmit }: ConfigurationFormProps) {
       });
       const message = await response.text();
       console.log(message);
-
-      const startResponse = await fetch(
-        "http://localhost:8080/ticketing/start",
-        {
-          method: "POST",
-        }
-      );
-      const startMessage = await startResponse.text();
-      console.log(startMessage);
       onSubmit(config);
     } catch (error) {
       console.error("Error starting system:", error);
