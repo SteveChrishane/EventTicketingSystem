@@ -1,6 +1,7 @@
 # Event Ticketing System 🎟️
 
-This repository contains the backend and Java CLI components of the Event Ticketing System.
+This repository contains the backend, Java CLI, and frontend components of the Event Ticketing System.
+
 
 ## Tech Stack 🛠️ 
 
@@ -8,10 +9,14 @@ This repository contains the backend and Java CLI components of the Event Ticket
 
 **Backend:** Spring Boot
 
+**Frontend:** React, TypeScript, Vite
+
+
 ## ✅ Prerequisites 
 
 - Java 17 or higher
 - Maven 3.6.3 or higher
+- Node.js 16 or higher
 
 ## Java CLI 🖥️
 
@@ -82,4 +87,38 @@ The backend is a Spring Boot application that manages the ticketing system.
 ### 🔗 API Endpoints
 - Start Simulation: `POST http://localhost:8080/ticketing/start`
 - Stop Simulation: `POST http://localhost:8080/ticketing/stop`
+- Set config values: `POST http://localhost:8080/ticketing/config`
 - Get Status: `GET http://localhost:8080/ticketing/status`
+
+## Frontend 🌐
+
+The frontend is a React application that provides a user interface for interacting with the ticketing system.
+
+### 🔍 Features
+
+- Display ticket pool status
+- Control panel to start and stop the simulation
+- Configuration form to set system parameters
+- Log display to show system logs
+
+### ⚙️ Setup
+
+1. Navigate to the frontend directory:
+
+   ```sh
+   cd EventTicketingSystem/Frontend
+   ```
+
+2. Install dependencies:
+
+   ```sh
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```sh
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`
