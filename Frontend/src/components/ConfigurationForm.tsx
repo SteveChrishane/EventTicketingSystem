@@ -8,8 +8,8 @@ interface ConfigurationFormProps {
 function ConfigurationForm({ onSubmit }: ConfigurationFormProps) {
   const [config, setConfig] = useState<SystemConfig>({
     totalTickets: 50,
-    ticketReleaseRate: 1,
-    customerRetrievalRate: 1,
+    ticketReleaseRate: 5,
+    customerRetrievalRate: 2,
     maxTicketCapacity: 100,
   });
 
@@ -21,9 +21,31 @@ function ConfigurationForm({ onSubmit }: ConfigurationFormProps) {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(config);
+    try {
+      const response = await fetch("http://localhost:8080/ticketing/config", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(config),
+      });
+      const message = await response.text();
+      console.log(message);
+
+      const startResponse = await fetch(
+        "http://localhost:8080/ticketing/start",
+        {
+          method: "POST",
+        }
+      );
+      const startMessage = await startResponse.text();
+      console.log(startMessage);
+      onSubmit(config);
+    } catch (error) {
+      console.error("Error starting system:", error);
+    }
   };
 
   return (

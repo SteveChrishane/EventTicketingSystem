@@ -1,16 +1,15 @@
 interface TicketStatusProps {
-  count: number;
   total: number;
+  max: number;
 }
 
-function TicketStatus({ count, total }: TicketStatusProps) {
+function TicketStatus({ total, max }: TicketStatusProps) {
   return (
     <div className="ticket-status">
       <h2>Ticket Pool Status</h2>
       <p>
-        Available Tickets: {count} / {total}
+        Available Tickets: {total} / {max}
       </p>
-      <progress value={count} max={total}></progress>
     </div>
   );
 }

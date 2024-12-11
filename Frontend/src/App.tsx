@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ConfigurationForm from "./components/ConfigurationForm";
 import TicketStatus from "./components/TicketStatus";
 import ControlPanel from "./components/ControlPanel";
@@ -40,24 +40,13 @@ function App() {
   const handleStart = () => {
     if (config) {
       setIsRunning(true);
-      // Here you would send the configuration to the backend
       console.log("Starting system with config:", config);
     }
   };
 
   const handleStop = () => {
     setIsRunning(false);
-    // Here you would send a stop signal to the backend
     console.log("Stopping system");
-  };
-
-  const handleReset = () => {
-    setIsRunning(false);
-    setTicketCount(0);
-    setLogs([]);
-    setConfig(null);
-    // Here you would send a reset signal to the backend
-    console.log("Resetting system");
   };
 
   return (
@@ -67,12 +56,14 @@ function App() {
         <ConfigurationForm onSubmit={setConfig} />
       ) : (
         <>
-          <TicketStatus count={ticketCount} total={config.totalTickets} />
+          <TicketStatus
+            total={config.totalTickets}
+            max={config.maxTicketCapacity}
+          />
           <ControlPanel
             isRunning={isRunning}
             onStart={handleStart}
             onStop={handleStop}
-            onReset={handleReset}
           />
           <LogDisplay logs={logs} />
         </>

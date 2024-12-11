@@ -15,7 +15,7 @@ public class Main {
             config.configPrompt();
             config.saveConfig();
         } else {
-            System.out.println("Configuration loaded successfully.");
+            System.out.println("\nConfiguration loaded successfully.");
             Logger.log("Configuration loaded successfully.");
         }
 

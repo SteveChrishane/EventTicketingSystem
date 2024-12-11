@@ -1,18 +1,20 @@
 package com.example.backend.controller;
 
 import com.example.backend.service.TicketingService;
+
+import com.example.backend.config.Config;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ticketing")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TicketController {
 
     @Autowired
     private TicketingService ticketingService;
+    private Config config;
 
     @PostMapping("/start")
     public String startSimulation() {
@@ -32,6 +34,15 @@ public class TicketController {
         } catch (IllegalStateException e) {
             return "Simulation is not running.";
         }
+    }
+
+    @PostMapping("/config")
+    public String updateConfig(@RequestBody Config newConfig) {
+        config.setTotalTickets(newConfig.getTotalTickets());
+        config.setTicketReleaseRate(newConfig.getTicketReleaseRate());
+        config.setCustomerRetrievalRate(newConfig.getCustomerRetrievalRate());
+        config.setMaxTicketCapacity(newConfig.getMaxTicketCapacity());
+        return "Configuration updated.";
     }
 
     @GetMapping("/status")
