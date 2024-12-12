@@ -14,7 +14,7 @@ public class Configuration {
     private int ticketReleaseRate;
     private int customerRetrievalRate;
     private int maxTicketCapacity;
-    private static final String configFileName = "config.json"; // Changed to JSON file
+    private static final String configFileName = "config.json";
 
     public void configPrompt() {
         Scanner input = new Scanner(System.in);
@@ -22,6 +22,7 @@ public class Configuration {
         System.out.print("Enter the maximum ticket capacity of the system: ");
         maxTicketCapacity = inputValidation(input);
 
+        // to check totalTickets does not exceed maxTicketCapacity
         do {
             System.out.print("Enter the total number of tickets available in the system: ");
             totalTickets = inputValidation(input);
@@ -55,7 +56,7 @@ public class Configuration {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a valid integer.");
-                scanner.next(); // Clear the invalid input
+                scanner.next(); // to Clear the invalid input
             }
         }
         return input;
@@ -68,18 +69,13 @@ public class Configuration {
         System.out.println("Ticket Release Rate: " + ticketReleaseRate);
         System.out.println("Customer Retrieval Rate: " + customerRetrievalRate);
         System.out.println();
-        // Logger.log("Displayed configuration: totalTickets: " + totalTickets + ",
-        // ticketReleaseRate: "
-        // + ticketReleaseRate + ", customerRetrievalRate: " + customerRetrievalRate +
-        // ", maxTicketCapacity: "
-        // + maxTicketCapacity);
     }
 
     public void saveConfig() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         try (FileWriter writer = new FileWriter(configFileName)) {
-            gson.toJson(this, writer); // Serialize this Configuration object to JSON
+            gson.toJson(this, writer); // Serialize Configuration object to JSON
             System.out.println("Configuration saved successfully to " + configFileName);
             Logger.log("Configuration saved successfully to " + configFileName);
         } catch (IOException e) {

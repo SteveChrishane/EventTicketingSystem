@@ -15,7 +15,7 @@ public class Customer implements Runnable {
         try {
             while (simRunning) {
                 Thread.sleep(1000); // Sleep for the retrieval rate duration
-                ticketPool.removeTickets(retrievalRate); // Attempt to purchase a ticket
+                ticketPool.removeTickets(retrievalRate);
                 Logger.log("Customer purchased " + retrievalRate + " tickets.");
             }
         } catch (InterruptedException e) {
@@ -23,7 +23,8 @@ public class Customer implements Runnable {
         }
     }
 
+    // using a flag to stop the simulation
     public void stop() {
-        simRunning = false; // Set stop flag
+        simRunning = false;
     }
 }

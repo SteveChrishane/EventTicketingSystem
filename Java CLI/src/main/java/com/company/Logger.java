@@ -26,14 +26,4 @@ public class Logger {
             System.err.println("Error writing log: " + e.getMessage());
         }
     }
-
-    public static void close() {
-        try {
-            if (writer != null) {
-                writer.close();
-            }
-        } catch (IOException e) {
-            System.err.println("Error closing logger: " + e.getMessage());
-        }
-    }
 }

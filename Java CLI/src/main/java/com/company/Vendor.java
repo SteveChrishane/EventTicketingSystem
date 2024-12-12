@@ -23,6 +23,7 @@ public class Vendor implements Runnable {
         }
     }
 
+    // using a flag to stop the simulation
     public void stop() {
         simRunning = false;
     }

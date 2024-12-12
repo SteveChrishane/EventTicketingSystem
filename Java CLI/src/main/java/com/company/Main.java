@@ -21,7 +21,7 @@ public class Main {
 
         config.displayConfig();
 
-        // Initialize the shared TicketPool with maxTicketCapacity
+        // to initialize the shared TicketPool with maxTicketCapacity
         TicketPool ticketPool = new TicketPool(config.getMaxTicketCapacity());
         ticketPool.addTickets(config.getTotalTickets());
 
@@ -33,20 +33,19 @@ public class Main {
             System.out.println("4. Exit");
             System.out.print("Choose an option: ");
 
-            int choice = input.nextInt();
-            input.nextLine(); // Consume newline
+            String choice = input.nextLine();
 
             switch (choice) {
-                case 1:
+                case "1":
                     simulate(config, ticketPool);
                     break;
-                case 2:
+                case "2":
                     updateConfiguration(config, input);
                     break;
-                case 3:
+                case "3":
                     config.displayConfig();
                     break;
-                case 4:
+                case "4":
                     running = false;
                     Logger.log("Application exited.");
                     break;
